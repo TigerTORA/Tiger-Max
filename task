@@ -1,0 +1,71 @@
+{:
+	u 'id': u 'task_1543555458144_0099_m_000029', u 'taskCounterGroup': [{
+		u 'counter': [{u 'name': u 'FILE_BYTES_READ',u 'value': 0}, 
+		  			  {u 'name': u 'FILE_BYTES_WRITTEN',u 'value': 151804}, 
+					  {u 'name': u 'FILE_READ_OPS',u 'value': 0}, 
+					  {u 'name': u 'FILE_LARGE_READ_OPS',u 'value': 0}, 
+					  {u 'name': u 'FILE_WRITE_OPS',u 'value': 0}, 
+					  {u 'name': u 'HDFS_BYTES_READ',u 'value': 119}, 
+					  {u 'name': u 'HDFS_BYTES_WRITTEN',u 'value': 1102235453}, 
+					  {u 'name': u 'HDFS_READ_OPS',u 'value': 4}, 
+					  {u 'name': u 'HDFS_LARGE_READ_OPS',u 'value': 0}, 
+					  {u 'name': u 'HDFS_WRITE_OPS',u 'value': 2}],
+		u 'counterGroupName': u 'org.apache.hadoop.mapreduce.FileSystemCounter'}, {
+		u 'counter': [{
+			u 'name': u 'MAP_INPUT_RECORDS',
+			u 'value': 1
+		}, {
+			u 'name': u 'MAP_OUTPUT_RECORDS',
+			u 'value': 1638628
+		}, {
+			u 'name': u 'SPLIT_RAW_BYTES',
+			u 'value': 119
+		}, {
+			u 'name': u 'SPILLED_RECORDS',
+			u 'value': 0
+		}, {
+			u 'name': u 'FAILED_SHUFFLE',
+			u 'value': 0
+		}, {
+			u 'name': u 'MERGED_MAP_OUTPUTS',
+			u 'value': 0
+		}, {
+			u 'name': u 'GC_TIME_MILLIS',
+			u 'value': 256
+		}, {
+			u 'name': u 'CPU_MILLISECONDS',
+			u 'value': 32980
+		}, {
+			u 'name': u 'PHYSICAL_MEMORY_BYTES',
+			u 'value': 442044416
+		}, {
+			u 'name': u 'VIRTUAL_MEMORY_BYTES',
+			u 'value': 2792480768
+		}, {
+			u 'name': u 'COMMITTED_HEAP_BYTES',
+			u 'value': 379584512
+		}],
+		u 'counterGroupName': u 'org.apache.hadoop.mapreduce.TaskCounter'
+	}, {
+		u 'counter': [{
+			u 'name': u 'BYTES_WRITTEN',
+			u 'value': 1073742391
+		}, {
+			u 'name': u 'RECORDS_WRITTEN',
+			u 'value': 1638628
+		}],
+		u 'counterGroupName': u 'org.apache.hadoop.examples.RandomTextWriter$Counters'
+	}, {
+		u 'counter': [{
+			u 'name': u 'BYTES_READ',
+			u 'value': 0
+		}],
+		u 'counterGroupName': u 'org.apache.hadoop.mapreduce.lib.input.FileInputFormatCounter'
+	}, {
+		u 'counter': [{
+			u 'name': u 'BYTES_WRITTEN',
+			u 'value': 1102235453
+		}],
+		u 'counterGroupName': u 'org.apache.hadoop.mapreduce.lib.output.FileOutputFormatCounter'
+	}]
+}

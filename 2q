@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import urllib
+import urllib2
+import json
+from ..config import Configuration
+from ..util.process import Process
+
+class History_util():
+    history_host = Configuration.history_host
+    history_port = Configuration.history_port
+    history_url = "http://%s:%s" %(history_host,history_port)
+    job_api = "%s/ws/v1/history/mapreduce/jobs/" %history_url 
+    
+    @staticmethod
+    def get_task_id(job_id):
+        command = "curl %s" %(History_util.job_api+job_id+"/tasks")
+        (stdout,stderr) = Process.call(command)
+        
+        tasks_dict = json.loads(stdout)
+        task_id_list = []
+        for task  in tasks_dict["tasks"]["task"]:
+            task_id_list.append(task['id'])
+        
+        return task_id_list
+
+    @staticmethod
+    def get_task_attempt_id(job_id):
+        task_attempt_dicks= {}
+        task_id_list = History_util.get_task_id(job_id)
+        for task_id in task_id_list:
+            command = "curl "+History_util.job_api+job_id+"/tasks/"+task_id+"/attempts"
+            (stdout,stderr) = Process.call(command)
+            attempt_dict = json.loads(stdout)
+            attempt_id_list = []
+            for attempt in attempt_dict["taskAttempts"]["taskAttempt"]:
+                attempt_id_list.append(attempt['id'])
+            task_attempt_dicks.update({task_id:attempt_id_list})
+        return task_attempt_dicks
+
+    @staticmethod        
+    def get_success_task_attempt_id(job_id):
+        success_task_attempt_dicks= {}
+        task_id_list = History_util.get_task_id(job_id)
+        for task_id in task_id_list:
+            command = "curl "+History_util.job_api+job_id+"/tasks/"+task_id+"/attempts"
+            (stdout,stderr) = Process.call(command)
+            attempt_dict = json.loads(stdout)
+            attempt_id_list = []
+            for attempt in attempt_dict["taskAttempts"]["taskAttempt"]:
+                if attempt['state'] == "SUCCEEDED":
+                    attempt_id_list.append(attempt['id'])
+            task_attempt_dicks.update({task_id:attempt_id_list})
+        return task_attempt_dicks
+

@@ -1,0 +1,183 @@
+<!DOCTYPPE html>
+<html lang="en">
+<!--这是头部信息-->
+<head>
+	<meta charser="UTF-8">
+	<title>冢虎</title>
+	<meta http-equiv='Refresh' Content='30'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" type="image/x-icon" href="img/tiger">
+	<style>
+		.panel-title{
+			    margin-top: 0;
+    			margin-bottom: 0;
+    			font-size: 16px;
+    			color: inherit;
+		}	
+		.panel {
+    		color: #333;
+    		background-color: #f5f5f5;
+    		border-color: #ddd;
+			width: 25%;
+			border: 10px solid #ccc;
+		}
+		.panel-body {
+    		padding: 15px;
+		}
+		.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+	</style>
+</head>
+
+<body>
+	<img src=img/tiger>
+	<div class="panel pancel-default">
+		<div class="panel-heading">
+			<div class="panel-list">
+				<a class="list-aroup" href="test">
+					<p>
+					 	<span class="label label-success">Mapper Skew</span>
+					 	<span class="label label-success">Mapper GC</span>
+					 	<span class="label label-success">Mapper Time</span>
+    					<span class="label label-success">Mapper Speed</span>
+    					<span class="label label-success">Mapper Spill</span>
+    					<span class="label label-success">Mapper Memory</span>
+    					<span class="label label-success">Reducer Skew</span>
+    					<span class="label label-success">Reducer GC</span>
+    					<span class="label label-success">Reducer Time</span>
+    					<span class="label label-success">Reducer Memory</span>
+    					<span class="label label-success">Shuffle &amp; Sort</span>
+					</p>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+    	<div class="panel-heading">
+        	<h3 class="panel-title"> Search </h3>
+    	</div>
+    	<div class="panel-body">
+			<form id="search-form" role="form" method="get" action="/search">
+        		<!--Job Id, FlowExec Url and the Username test input type-->
+        		<div class="form-group">
+          			<label for="form-job-id">Job/App ID</label>
+          			<input type="text" class="form-control" id="form-job-id" name="id" placeholder="Job ID">
+        		</div>
+        		<div class="form-group">
+          			<label for="form-flow-exec-id">Flow Execution URL/ID</label>
+          			<input type="text" class="form-control" id="form-flow-exec-id" name="flow-exec-id" placeholder="Flow Exec URL/ID">
+        		</div>
+        		<div class="form-group">
+          			<label for="form-job-def-id">Job Definition ID</label>
+          			<input type="text" class="form-control" id="form-job-def-id" name="job-def-id" placeholder="Job Definition ID">
+        		</div>
+        		<div class="form-group">
+          			<label for="form-username">User</label>
+          			<input type="text" class="form-control" id="form-username" name="username" placeholder="User" >
+        		</div>
+        		<div class="form-group">
+          			<label for="form-queue-name">Queue</label>
+          			<input type="text" class="form-control" id="form-queue-name" name="queue-name" placeholder="Queue">
+        		</div>
+
+        		<!--Job Type filter-->
+        		<div class="checkbox">
+          			<label><input type="checkbox" id="form-job-type-enable" name="filter-job-type" value="" > Job Type</label>
+        		</div>
+        		<div class="form-group" style="padding-left:10px;">
+          			<select class="form-control" id="form-job-type" name="job-type">
+             		<optgroup label="SPARK">
+                		<option value="Spark">Spark</option>
+              		</optgroup>
+
+             		<optgroup label="MAPREDUCE">
+                		<option value="Pig">Pig</option>
+                		<option value="Hive">Hive</option>
+                		<option value="OozieLauncher">OozieLauncher</option>
+                		<option value="Cascading">Cascading</option>
+                		<option value="Voldemort">Voldemort</option>
+                		<option value="Kafka">Kafka</option>
+                		<option value="HadoopJava">HadoopJava</option>
+              		</optgroup>
+          			</select>
+        		</div>
+
+        		<!--Severity filter-->
+        		<div class="checkbox">
+          			<label><input type="checkbox" id="form-severity-enable" name="filter-severity" value=""> Severity</label>
+        		</div>
+        		<div class="form-group" style="padding-left:10px;">
+          			<select class="form-control" id="form-severity" name="severity">
+              			<option value="4">Critical</option>
+              			<option value="3">Severe</option>
+              			<option value="2">Moderate</option>
+              			<option value="1">Low</option>
+              			<option value="0">None</option>
+            		</select>
+        		</div>
+
+				<!--detail filter-->
+        		<div class="form-group" style="padding-left:10px;">
+         			 <select class="form-control" id="form-analysis" name="analysis">
+            			<option value="">All Analysis</option>
+              			<optgroup label="SPARK">
+               				<option value="Executor GC">Executor GC</option>
+                			<option value="Spark Configuration">Spark Configuration</option>
+                			<option value="Spark Executor Metrics">Spark Executor Metrics</option>
+                			<option value="Spark Job Metrics">Spark Job Metrics</option>
+                			<option value="Spark Stage Metrics">Spark Stage Metrics</option>
+              			</optgroup>
+
+              			<optgroup label="MAPREDUCE">
+                			<option value="Distributed Cache Limit">Distributed Cache Limit</option>
+                			<option value="Exception">Exception</option>
+                			<option value="Mapper GC">Mapper GC</option>
+                			<option value="Mapper Memory">Mapper Memory</option>
+                			<option value="Mapper Skew">Mapper Skew</option>
+                			<option value="Mapper Speed">Mapper Speed</option>
+                			<option value="Mapper Spill">Mapper Spill</option>
+                			<option value="Mapper Time">Mapper Time</option>
+                			<option value="Reducer GC">Reducer GC</option>
+                			<option value="Reducer Memory">Reducer Memory</option>
+                			<option value="Reducer Skew">Reducer Skew</option>
+                			<option value="Reducer Time">Reducer Time</option>
+                			<option value="Shuffle &amp; Sort">Shuffle &amp; Sort</option>
+              			</optgroup>
+          			</select>
+        		</div>
+
+        		<!--Job Finish Date filter-->
+        		<div class="checkbox">
+          			<label><input type="checkbox" id="form-datetime-enable" name="datetime-enable" value="" > Job Finish Date</label>
+        		</div>
+        		<div class="form-group" style="padding-left:10px;">
+          			<input type="text" class="form-control" id="form-finished-time-begin-date" name="finished-time-begin-date" placeholder="From: mm/dd/yyyy">
+          			<input type="hidden" id="form-finished-time-begin" name="finished-time-begin" value="">
+        		</div>
+        		<div class="form-group" style="padding-left:10px;">
+          			<input type="text" class="form-control" id="form-finished-time-end-date" name="finished-time-end-date" placeholder="To: mm/dd/yyyy">
+          			<input type="hidden" id="form-finished-time-end" name="finished-time-end" value="">
+        		</div>
+
+        		<button type="submit" class="btn btn-default" id="submit-button">Get Result</button>
+      </form>
+
+    </div>
+</div>
+</body>
+</html>

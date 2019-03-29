@@ -36,10 +36,11 @@ class Hdfsbench(Dependency):
         from ..util.timer import Timer
        
         clean = ["hadoop jar $(find / -name hadoop-test-mr1.jar|tail -n 1)  TestDFSIO -clean"]
-        write = ["hadoop jar $(find / -name hadoop-test-mr1.jar|tail -n 1)  TestDFSIO -write -nrFiles 1 -fileSize 1GB"]
-	read = ["hadoop jar $(find / -name hadoop-test-mr1.jar|tail -n 1)  TestDFSIO -read  -nrFiles 1 -fileSize 1GB"]
-      	
-	command_list = [clean,write,read,clean]
+        write = ["hadoop jar $(find / -name hadoop-test-mr1.jar|tail -n 1)  TestDFSIO -write -nrFiles 1 -fileSize 1GB -resFile /tmp/TestDFSIO_write.log"]
+	read = ["hadoop jar $(find / -name hadoop-test-mr1.jar|tail -n 1)  TestDFSIO -read  -nrFiles 1 -fileSize 1GB -resFile /tmp/TestDFSIO_read.log"]
+      	cat = ["cat /tmp/TestDFSIO_*"]
+
+	command_list = [clean,write,read,clean,cat]
 	io_res_dict = {}
 	for command  in command_list:
 		if show_command:

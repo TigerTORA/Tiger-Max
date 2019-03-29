@@ -13,6 +13,8 @@ from .config import Configuration
 from .tools.sysbench import *
 from .tools.hdfsbench import *
 from .tools.mapreduce_analyser import *
+from .tools.hdfs_analyser import *
+from .tools.hdfs_tuning import *
 
 class Tiger():
     def __init__(self):
@@ -65,7 +67,9 @@ def main():
             nav.print_manager_hdfs()
         elif option in ['3']:
             nav.print_manager_yarn()
-        elif option in ['4']:
+        elif option in ['5']:
+            nav.print_manager_hive()
+        elif option in ['4']: 
             nav.print_manager_hbase()
         elif option in ['a']:
             nav.print_manager_linux()
@@ -85,6 +89,9 @@ def main():
             system_init.cnf_ntp()
         elif option in ['21']:
             Hdfsbench.bench_io()
+        elif option in ['22']:
+            analyser  = Hdfs_analyser()
+            analyser.run_check()
         elif option in ['31']:
             manger_yarn.yarn_base_test()
         elif option in ['33']:

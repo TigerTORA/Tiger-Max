@@ -55,8 +55,9 @@ class Nav():
         """
         msg = Color.s("""\n{G}###    tiger-max当前页面:管理hdfs服务    ###{W}
 
-        1) 输入 {G}21{W}    hdfs基准检测
-        2) 输入 {G}22{W}    hdfs性能参数优化
+        1) 输入 {G}21{W}    hdfs 基准检测
+        2) 输入 {G}22{W}    hdfs 文件用户分析
+	3) 输入 {G}23{W}    hdfs 小文件分析
 
         9) 输入 {G}p{W}    返回上一页
         0) 输入 {G}q{W}    退出
@@ -96,6 +97,24 @@ class Nav():
 	""")
 	print textwrap.dedent(msg)
 	
+    @staticmethod
+    def print_manager_hive():
+        """
+        打印提示导航栏管理hive服务
+        """
+        msg = Color.s("""\n{G}###    tiger-max当前页面:管理hive服务    ###{W}
+        1) 输入 {G}41{W}    hive表异构存储配置
+        2) 输入 {G}42{W}    hive表异构存储查看
+
+        9) 输入 {G}p{W}    返回上一页
+        0) 输入 {G}q{W}    退出
+        """)
+        print textwrap.dedent(msg)
+        
+
+
+
+
     @staticmethod
     def print_manager_linux():
 	"""

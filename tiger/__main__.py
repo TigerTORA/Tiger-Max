@@ -73,6 +73,8 @@ def main():
             nav.print_manager_hbase()
         elif option in ['a']:
             nav.print_manager_linux()
+	elif option in ['00']:
+	    system_init.cnf_check()
         elif option in ['11']:
             system_init.cnf_host()
         elif option in ['12']:

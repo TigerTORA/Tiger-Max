@@ -22,7 +22,6 @@ class Dependency(object):
                 ]
 
         apps = [
-
                 ]
         #在所有机器上检查apps_hhdp上的依赖
         missing_required_all  = any([app_hhdp.fails_dependency_check_hhdp() for app_hhdp in apps_hhdp])
@@ -59,18 +58,17 @@ class Dependency(object):
         from ..tools.hhdp import hhdp
 
         #unexists_list = Process.exists_hhdp(cls.dependency_name)
-	command = ['hhdp',
-		   "-c",
-	           "which "+cls.dependency_name]
-	ress = hhdp(command)
-	for res in ress:
+	for key,name in cls.dependency_namei.keys():
+	    command = ['hhdp', "-c", "which "+key]
+	    ress = hhdp(command)
+	    for res in ress:
 		hostname = res[0]
 		sdout = res[1]
 		sderr = res[2]
 		if sderr:
-			Color.pl('{!} {O}Error: Required app {R}%s{O} was not found in host {R}%s' % (cls.dependency_name,hostname))
+			Color.pl('{!} {R}Error: {W}Required app {R}%s{O} was not found in host {R}%s{W}' % (key,hostname))
 		else:
-			Color.pl('{+} {O}Info: Required app {R}%s{O} was  found in host {R}%s' % (cls.dependency_name,hostname))
+			Color.pl('{+} {G}Info: {W}Required app {R}%s{O} was  found in host {R}%s{W}' % (key,hostname))
         
 	#if cls.dependency_required:
         #    for host in unexists_list:

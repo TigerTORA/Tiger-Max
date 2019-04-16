@@ -134,7 +134,6 @@ class System_init():
 	else:
 	    Color.pl("{+}Error: {R}I cannot file %s find {W}" %self.hhdp_file)
 	    os._exiti(0)
-        self.cm_server()	
 	self.step_manger("03","configure hostname")
         self.step_manger("04","Close SElinux")
         self.step_manger("05","Close firewall")

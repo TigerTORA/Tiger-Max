@@ -32,16 +32,10 @@ class Nav():
         """
         msg = Color.s("""\n{G}###    tiger-max当前页面:大数据集群主机初始化    ###{W}
 	0) 输入 {G}00{W}    初始化集群服务器
-        1) 输入 {G}11{W}    集群配置hosts文件
-        2) 输入 {G}12{W}    集群配置hostname
-        3) 输入 {G}13{W}    集群关闭SElinux
-        4) 输入 {G}14{W}    集群关闭iptbales
-        5) 输入 {G}15{W}    关闭集群交换内存
-        6) 输入 {G}16{W}    修改 transparent_hugepage 参数
+	1) 输入 {G}11{W}    安装CM server
         7) 输入 {G}17{W}    配置ntp服务
         8) 输入 {G}18{W}    安装java和jce文件
         8) 输入 {G}19{W}    安装mysql jdbc
-
 
         9) 输入 {G}p{W}    返回上一页
         0) 输入 {G}q{W}    退出

@@ -35,41 +35,27 @@ class Dependency(object):
             sys.exit(-1)
 
     @classmethod
-    def fails_dependency_check(cls):
+    def fails_dependency_check_hhdp(self,dict):
+	from ..util.color import Color
+	from ..tools.hhdp import hhdp
+        for key,name in dict.items():
+            command = ['none', "-c", "which "+key]
+            ress = hhdp(command)
+            for res in ress:
+                ip = res[0]
+                stdout = res[1]
+                stderr = res[2]
+                if stderr:
+                        Color.pl('{!} {R}Error: {W}Required app {R}%s{W} was not found in host {R}%s,{W}refer to:{R}%s{W}' % (key,ip,name))
+                else:
+                        Color.pl('{+} {G}Info: {W}Required app {G}%s{W} was found in host {G}%s{W}' % (key,ip))
+    @classmethod
+    def fails_dependency_check(self,dict):
         from ..util.color import Color
         from ..util.process import Process
+	for key,name in dict.items():
+	    if Process.exists(key):
+	        Color.pl('{+} {G}Info: {W}Required app {G}%s{W} was found{W}' % (key))
+	    else:
+		Color.pl('{!} {R}Error: {W}Required app {R}%s{W} was not found{R}%s,{W}refer to:{R}%s{W}' % (key,name))
 
-        if Process.exists(cls.dependency_name):
-            return False
-
-        if cls.dependency_required:
-            Color.p('{!} {O}Error: Required app {R}%s{O} was not found' % cls.dependency_name)
-            Color.pl('. {W}install @ {C}%s{W}' % cls.dependency_url)
-            return True
-
-        else:
-            Color.p('{!} {O}Warning: Recommended app {R}%s{O} was not found' % cls.dependency_name)
-            Color.pl('. {W}install @ {C}%s{W}' % cls.dependency_url)
-            return False
-
-    @classmethod
-    def fails_dependency_check_hhdp(cls):
-        from ..util.color import Color
-        from ..tools.hhdp import hhdp
-
-        #unexists_list = Process.exists_hhdp(cls.dependency_name)
-	for key,name in cls.dependency_namei.keys():
-	    command = ['hhdp', "-c", "which "+key]
-	    ress = hhdp(command)
-	    for res in ress:
-		hostname = res[0]
-		sdout = res[1]
-		sderr = res[2]
-		if sderr:
-			Color.pl('{!} {R}Error: {W}Required app {R}%s{O} was not found in host {R}%s{W}' % (key,hostname))
-		else:
-			Color.pl('{+} {G}Info: {W}Required app {R}%s{O} was  found in host {R}%s{W}' % (key,hostname))
-        
-	#if cls.dependency_required:
-        #    for host in unexists_list:
-        #        Color.pl('{!} {O}Error: Required app {R}%s{O} was not found in host {R}%s' % (cls.dependency_name,host))

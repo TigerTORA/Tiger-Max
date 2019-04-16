@@ -31,4 +31,15 @@ pip install paramiko pexpect prettytable
 ## 具体使用
 ### 1.大数据集群主机初始化
 #### 00.初始化集群服务器
-  1. 
+  * 必要软件包检测
+  * step(0):Plesse keyin the NTP server hostname or ip:
+  * step(1):配置/etc/hosts文件
+  * step(2):确认配置主机对象
+  * step(3):配置hostname
+  * step(4):关闭SElinux
+  * step(5):关闭firewall
+  * step(6):调整swap参数
+  * step(7):关闭transparent hugepage
+  * step(8):配置NTP server
+  
+### 后面继续更新

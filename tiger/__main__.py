@@ -39,7 +39,7 @@ class Tiger():
         Color.pl(r'{W}***************************************************')
         Color.pl(r'{B}*▀▛▘ {O}▗  {G}    {R}    {P}   *  {B}tiger {D}1.0{W}')
         Color.pl(r'{B}* ▌  {O}▄  {G}▞▀▌ {R}▞▀▖ {P}▙▀▖*  {B}Bigdata Cluster Manager Tool')
-        Color.pl(r'{B}* ▌  {O}▐  {G}▚▄▌ {R}▛▀  {P}▌  *  {B}https://github.com/tiger{W}')
+        Color.pl(r'{B}* ▌  {O}▐  {G}▚▄▌ {R}▛▀  {P}▌  *  {B}https://github.com/TigerTORA{W}')
         Color.pl(r'{B}* ▘  {O}▀▘ {G}▗▄▘ {R}▝▀▘ {P}▘  *  {B}Author:LUOHU')
         Color.pl(r'{W}***************************************************')
 

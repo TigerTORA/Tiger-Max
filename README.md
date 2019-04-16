@@ -28,4 +28,5 @@ pip install paramiko pexpect prettytable
  * passwd [可选项]调用ssh所需密码. 例: passwd:ssh_password 默认值: passwd:key(使用pkey对应的值,passwd不等于key时,则直接使用密码)
  * pkey [可选项]调用ssh所需私钥. 例: pkey:/opt/pro/id_rsa 默认值: 当前用户家目录下的.ssh目录中的id_rsa, 此文件不存在时直接报错.
  ```
-
+## 具体使用
+### 00.大数据集群主机初始化

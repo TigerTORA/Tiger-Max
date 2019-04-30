@@ -92,8 +92,11 @@ def main():
         elif option in ['21']:
             Hdfsbench.bench_io()
         elif option in ['22']:
-            analyser  = Hdfs_analyser()
+            analyser = Hdfs_analyser()
             analyser.run_check()
+	elif option in ['24']:
+	    analyser = Hdfs_analyser()
+	    analyser.run_block_check()
         elif option in ['31']:
             manger_yarn.yarn_base_test()
         elif option in ['33']:

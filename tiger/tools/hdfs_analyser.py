@@ -15,18 +15,27 @@ class Hdfs_analyser():
 	self.file_size_02 = self.tmp_dir + "hdfs_file_size_64.report"
 	
     def get_file_list(self):
+	"""
+	获取hadoop中的文件列表
+	"""
 	command =  "hdfs dfs -ls -R  /  > %s" %self.file_list
 	Color.pl('{+} {D}Running: {W}{P}%s{W}' % ' '.join(command))
 	(stdout, stderr) = Process.call(command)
 	
 
     def user_analyser(self):
+	"""
+	通过hadoop文件列表分析文件用户属性
+	"""
 	command = '''grep '^-rw' %s | awk '{print $3" "$5}' | awk '{count[$1]++;sum[$1]=sum[$1]+$2}END{for(pol in sum)printf("%%-30s%%-15s%%-15s\\n","USER:"pol,count[pol],sum[pol]/1024^4)}'|sort -rnk 2 > %s''' % (self.file_list, self.file_user)
 	Color.pl('{+} {D}Running: {W}{P}%s{W}' % ' '.join(command))
 	(stdout, stderr) = Process.call(command)	
 	print(stdout)
 
     def size_analyser(self):
+	"""
+	通过hdfs文件列表分析文件大小统计
+	"""
 	command_total = "grep '^-rw' %s|wc -l" %self.file_list
 	command_small = "grep '^-rw' %s|awk '$5 <= 134217728'|wc -l"  %self.file_list
 	command_small_1 = "grep '^-rw' %s|awk '$5 <= 67108864'|wc -l"  %self.file_list
@@ -55,3 +64,8 @@ class Hdfs_analyser():
 	    (stdout, stderr) = Process.call("head  -10  %s" %self.file_user)
 	    print(stdout)
 	self.size_analyser()
+
+    def run_block_check(self):
+	(stdout, stderr) = Process.call("tiger/tools/hdfs-metadata/bin/compile")
+	path  = raw_input("key in the hdfs path you want analyse:")
+	(stdout, stderr) = Process.call("tiger/tools/hdfs-metadata/bin/hdfs-blkd %s" %path)

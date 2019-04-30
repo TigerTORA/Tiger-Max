@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Copyright (C) 2016, CERN
+# This software is distributed under the terms of the GNU General Public
+# Licence version 3 (GPL Version 3), copied verbatim in the file "LICENSE".
+# In applying this license, CERN does not waive the privileges and immunities
+# granted to it by virtue of its status as Intergovernmental Organization
+# or submit itself to any jurisdiction.
+
+# Environment variables for configuration
+# 
+# FORCE_JAVAC = true if you do not want to use Maven (default Maven is used)
+# JDK_HOME = path to JDK home (default: binaries from PATH)
+# HADOOP_HOME = path to Hadoop home (default: binaries from PATH)
+
+# Reference: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+HOME=$SCRIPT_DIR/..
+
+if `command -v "mvn" &> /dev/null` && ! [ "$FORCE_JAVAC" == "true" ] ;
+then
+	mvn -f $HOME/pom.xml install
+else
+	HADOOP_IN_PATH=$(PATH="${HADOOP_HOME:-${HADOOP_PREFIX}}/bin:$PATH" which hadoop 2>/dev/null)
+	HADOOP_CLASSPATH=$($HADOOP_IN_PATH classpath)
+
+	if [ -z "$JDK_HOME"  ]
+	then
+		JAVAC_BIN=javac
+		JAR_BIN=jar
+	else
+		JAVAC_BIN=$JDK_HOME/bin/javac
+		JAR_BIN=$JDK_HOME/bin/jar
+	fi
+
+	$JAVAC_BIN -cp $HADOOP_CLASSPATH \
+		$HOME/src/main/java/ch/cern/db/hdfs/*.java \
+		$HOME/src/main/java/ch/cern/db/util/*.java
+
+	mkdir -p $HOME/target
+
+	$JAR_BIN cf $HOME/target/hdfs-metadata.jar -C $HOME/src/main/java/ .
+fi

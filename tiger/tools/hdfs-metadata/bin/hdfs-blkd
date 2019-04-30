@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Copyright (C) 2016, CERN
+# This software is distributed under the terms of the GNU General Public
+# Licence version 3 (GPL Version 3), copied verbatim in the file "LICENSE".
+# In applying this license, CERN does not waive the privileges and immunities
+# granted to it by virtue of its status as Intergovernmental Organization
+# or submit itself to any jurisdiction.
+
+# Environment variables for configuration
+# 
+# JAVA_HOME = path to Java home (default: binaries from PATH)
+# HADOOP_HOME = path to Hadoop home (default: binaries from PATH)
+
+# Reference: http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+HOME=$SCRIPT_DIR/..
+
+if `command -v "hadoop" &> /dev/null` ;
+then
+	hadoop jar $HOME/target/hdfs-metadata*.jar ch.cern.db.hdfs.Main "$@"
+else
+	HADOOP_IN_PATH=$(PATH="${HADOOP_HOME:-${HADOOP_PREFIX}}/bin:$PATH" which hadoop 2>/dev/null)
+	HADOOP_CLASSPATH=$($HADOOP_IN_PATH classpath)
+	
+	if [ -z "$JAVA_HOME"  ]
+	then
+		JAVA_BIN=java
+	else
+		JAVA_BIN=$JAVA_HOME/bin/java
+	fi
+		
+	$JAVA_BIN -cp $HOME/target/*:$HADOOP_CLASSPATH ch.cern.db.hdfs.Main "$@"
+fi
